@@ -1,0 +1,1708 @@
+<html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Search PRN By Address</title>
+<link href="/eservices/images2/favicon.png" rel="icon">
+
+
+<link rel="stylesheet" href="/eservices/css2/font.css?v=1697769251859">
+
+
+<link rel="stylesheet" href="/eservices/css2/font.css?v=1697769251859">
+<style>
+
+	#dialog {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+
+
+
+<script language="javascript">
+	var isChi = false;
+
+
+    var screenID = "lotlist";
+	function popImportant(){
+
+		showOrderlistPopup = 1;		// show pop-up
+
+
+		centeredWindow1("/eservices/common/important_en.html", "IMPORTANT_NOTICE");
+
+	}
+	function popTnC(){
+
+		showOrderlistPopup = 1;		// show pop-up
+
+
+
+			centeredWindow1("/eservices/nonsub/terms.jsp", "TERMS_CONDITION");
+
+
+	}
+	function preLoad(path){
+
+			//preloadImg(path);
+
+	}
+
+</script>
+<script language="JavaScript1.2">
+<!--
+
+	function linkClick () {
+		var executeAction = true;
+		if (this.onclick) {
+			executeAction = this.onclick({type: 'click'});
+		}
+		if (executeAction)
+		open (this.href, this.target ? this.target : '_self');
+	}
+	function initLinkClick () {
+		if (document.layers && document.links.length > 0)
+		document.links[0].constructor.prototype.click = linkClick;
+	}
+
+//-->
+</script>
+<script language="javascript"> var contextPath="/eservices";</script>
+
+<script language="JavaScript" src="/eservices/common/Utilities.js?v=1697769251859"></script>
+<!-- <script language="JavaScript" src="/eservices/common/jquery-1.7.2.min.js?v=1697769251859"></script> -->
+<!-- DCR 20210628 001 ++ -->
+<script language="JavaScript" src="/eservices/common/jquery-3.7.0.min.js?v=1697769251859"></script>
+<!-- <script language="JavaScript" src="/eservices/common/jquery-migrate-3.3.2.js?v=1697769251859"></script> -->
+<!-- DCR 20210628 001 -->
+<!-- jQuery ui ++ -->
+<link rel="stylesheet" href="/eservices/css/jquery-ui.min.css?v=1697769251859">
+<!--<link rel="stylesheet" href="/eservices/css/jquery-ui.structure.css?v=1697769251859">-->
+<!--<link rel="stylesheet" href="/eservices/css/jquery-ui.theme.css?v=1697769251859">-->
+<!--<script language="JavaScript" src="/eservices/css/jquery-1.12.0.js?v=1697769251859"></script>-->
+<script language="JavaScript" src="/eservices/common/jquery-ui.min.js?v=1697769251859"></script>
+<!--SCR 170112-1002 - Date picker for date input fields, ++ -->
+
+<!--SCR 170112-1002 - Date picker for date input fields, -- -->
+<!--<script language="JavaScript" src="/eservices/css/jquery-ui.min.js?v=1697769251859"></script>-->
+
+<script language="JavaScript" src="/eservices/common/popper.min.js?v=1697769251859"></script>
+<script language="JavaScript" src="/eservices/common/sb-admin-2.min.js?v=1697769251859"></script>
+<link rel="stylesheet" href="/eservices/css2/sb-admin-2.min.css?v=1697769251859">
+<link rel="stylesheet" href="/eservices/css2/common.css?v=1697769251859">
+
+<!-- jQuery ui -->
+<script language="javascript">
+
+		// DCR-20160107-0001, session alert,++
+
+
+		jQuery(document).ready(function($){
+
+
+
+		//SCR 170112-1002 - Date picker for date input fields, ++
+		// DCR-20210628-0001, JQuery Upgrade, ++
+		//$( '[name="fromDD"], [name="fromMM"], [name="fromYY"], [name="fromYYYY"]' ).bind('keydown', function (e) {
+		$( '[name="fromDD"], [name="fromMM"], [name="fromYY"], [name="fromYYYY"]' ).on('keydown', function (e) {
+		// DCR-20210628-0001, JQuery Upgrade, --
+			$(this).datepicker("hide");
+			if (e.which == 13) {
+				e.stopPropagation();
+		        e.preventDefault();
+			    return false;
+			  	}
+			 }).datepicker(
+				{
+					changeMonth: true,
+				    changeYear: true,
+				    showButtonPanel: true,
+				    closeText : "Close",
+				    onSelect: function(dateText, inst) {
+				        var pieces = dateText.split('/');
+				        $('[name="fromMM"]').val(pieces[0]);
+				        $('[name="fromDD"]').val(pieces[1]);
+				        $('[name="fromYY"]').val(pieces[2]);
+				        $('[name="fromYYYY"]').val(pieces[2]);
+				    }
+				}
+		);
+		// DCR-20210628-0001, JQuery Upgrade, ++
+		//$( '[name="toDD"], [name="toMM"], [name="toYY"], [name="toYYYY"]' ).bind('keydown', function (e) {
+		$( '[name="toDD"], [name="toMM"], [name="toYY"], [name="toYYYY"]' ).on('keydown', function (e) {
+		// DCR-20210628-0001, JQuery Upgrade, --
+			$(this).datepicker("hide");
+			if (e.which == 13) {
+				e.stopPropagation();
+		        e.preventDefault();
+			    return false;
+			  	}
+			 }).datepicker(
+				{
+					changeMonth: true,
+				    changeYear: true,
+				    showButtonPanel: true,
+				    closeText : "Close",
+				    onSelect: function(dateText, inst) {
+				        var pieces = dateText.split('/');
+				        $('[name="toMM"]').val(pieces[0]);
+				        $('[name="toDD"]').val(pieces[1]);
+				        $('[name="toYY"]').val(pieces[2]);
+				        $('[name="toYYYY"]').val(pieces[2]);
+				    }
+				}
+		);
+		//SCR 170112-1002 - Date picker for date input fields, --
+
+		titleMsg = 'Session Expiration Alert';
+		$('#dialog').prop('title', titleMsg);
+		$('#dialog').dialog({
+			autoOpen: false,
+			modal: true,
+
+			buttons: {
+				OK: function() {
+					var now = new Date();
+					var diff = now - sess_lastActivity;
+					var diffMins = (diff/1000/60);
+					var rndm = 9.0;
+					var url = "/eservices/ping.html?Q=" + rndm;
+					//var url = "/eservices/ping.html";
+					//alert ("diffMins:" + diffMins);
+					if (diffMins <= sess_expirationMinutes) {
+						sess_lastActivity = new Date();	// reset timer
+
+						//$.post(url);		// keep session alive
+					    jQuery.post(url);		// keep session alive
+						sessSetInterval();
+
+					}else {
+						//alert("exceed 8 min");
+						window.location.replace("/eservices/common/timeout.jsp");		// redirect to timeout page
+					}
+					$(this).dialog("close");
+				}
+			}
+		});
+
+		$('#dialog').on('click', function(e) {
+			var pagename =location.href.split("/").slice(-1);
+			var pagename2 = pagename.toString();
+			pagename2 = pagename2.substring(0, pagename2.indexOf('.'));
+			//alert(pagename + " : " + pagename2);
+			if (pagename2 != "timeout" && pagename2 != "close" && pagename2 != "system_error" && pagename2 != "error_system") {
+				$('#dialog').dialog("open");
+			}
+		});
+		//});
+
+
+
+		//DCR-20170524-0001++, change dialog outlook
+
+		$(".ui-dialog").find(".ui-widget-header").css("background","#80a8ff");
+		$(".ui-dialog").find(".ui-widget-header").css("border","none");
+		$(".ui-dialog").find("button").css("color","#000000");
+		$(".ui-dialog").find("button").css("background","#80bfff");
+		$(".ui-dialog").find("button").css("border","none");
+		$(".ui-dialog").find("button").css("outline","none");
+		//DCR-20170524-0001--
+
+
+		});
+
+	// DCR-20160107-0001, session alert,--
+
+
+	var outstandingOrderNum = 0;
+	var showOrderlistPopup = 1;		// Show pop-up by default (if with outstanding items)
+	function bindDOMEvents() {
+	    // Bind keypress event to exclude the "F5 - refresh" / "Ctlr-F5" / "Enter"
+	    // DCR-20210628-0001, JQuery Upgrade, ++
+	    //$(document).bind('keydown', function(e) {
+	    $(document).on('keydown', function(e) {
+	    // DCR-20210628-0001, JQuery Upgrade, --
+	        var key = e.which || e.keyCode;
+	        if ((key == 116) || (e.ctrlKey && key == 82) || (key == 13)) {
+	            showOrderlistPopup = 0;
+	        }
+	    });
+	    // Bind link clicks (except id starts with 'pageLink')
+    	// DCR-20210628-0001, JQuery Upgrade, ++
+	    //$("a:not([id^='pageLink'])").bind("click", function(){
+	    $("a:not([id^='pageLink'])").on("click", function(){
+
+	    // DCR-20210628-0001, JQuery Upgrade, --
+			showOrderlistPopup = 0;
+	    });
+	    // Bind image map clicks (click "Home")
+    	// DCR-20210628-0001, JQuery Upgrade, ++
+	    //$("area").bind("click", function(){
+	    $("area").on("click", function(){
+	    	// DCR-20210628-0001, --
+	    	showOrderlistPopup = 0;
+	    });
+	};
+	$(document).ready(function() {
+		bindDOMEvents();
+	});
+	window.onbeforeunload = confirmClose;
+  	function confirmClose() {
+		// DCR-20170524-0001,++
+		/// show warning message even subscribers, 20170726
+		if ((0 > 0 ) && (showOrderlistPopup == 1) && (isSubmitted == false)) {
+		///if ((0 > 0 ) && (!false) && (showOrderlistPopup == 1) && (isSubmitted == false)) {  //DCR-20170524-0001,--
+			// debug 20170522,++
+			//return "You have 0 item(s) in your Order List.<br/>Are your sure?".replace("<br/>","\n");
+			//if (!false) {
+			return "You have 0 item(s) in your Order List.<br/>Are your sure?".replace("<br/>","\n");
+			//}
+			// debug,--
+		}
+  	}
+
+
+
+
+
+
+	//How frequently to check for session expiration in milliseconds
+	var sess_pollInterval = 10000;
+	//How many minutes the session is valid for
+	var sess_expirationMinutes = 3600/60;
+	//var sess_expirationMinutes = 5;
+	//How many minutes befoer the warning prompt
+	//var sess_warningMinutes = sess_expirationMinutes - 19;
+	var sess_warningMinutes = sess_expirationMinutes - 5;
+
+	var sess_intervalID;
+	var sess_lastActivity;
+	var msg;
+
+
+	function initSessionMonitor() {
+		<!---->
+			sess_lastActivity = new Date();
+			sessSetInterval();
+		//	$(document).bind('keypress.session',function(ed,e){sessKeyPressed(ed,e);});
+		<!---->
+		//alert("initSessionMonitor() " + Date());		// debug
+	}
+	function sessSetInterval() {
+		sess_intervalID = setInterval(() => {sessInterval();}, sess_pollInterval);
+
+	}
+
+	function sessClearInterval() {
+		clearInterval(sess_intervalID);
+
+	}
+
+	function sessKeyPressed(ed, e) {
+		sess_lastActivity = new Date();
+		//sessSetInterval();
+	}
+
+	function sessInterval() {
+		var now = new Date();
+		var diff = now - sess_lastActivity;
+		var diffMins = (diff/1000/60);
+		var hh = now.getHours();
+		var MM = now.getMinutes();
+		//var ss = now.getSeconds();
+
+		if (diffMins >= sess_warningMinutes && diffMins < sess_expirationMinutes) {
+			sessClearInterval();
+
+			//alert('Your session will expire in ' + (sess_expirationMinutes - sess_warningMinutes) + ' minutes (as of ' + now.toTimeString() + ').');
+			///alert('Your session will expire in ' + (sess_expirationMinutes - sess_warningMinutes) + ' minutes (as of ' + (hh < 10 ? "0" : "") + hh + (MM < 10 ? ":0" : ":") + MM  + ').');
+			//titleMsg = 'Session Expiration Alert';
+			//msg = 'Your session will expire in 5 minutes (as of ' + (hh < 10 ? "0" : "") + hh + (MM < 10 ? ":0" : ":") + MM  + ').';
+			msg = 'Your transaction session will expire in ' + (sess_expirationMinutes - sess_warningMinutes) + ' minutes (message at ' + (hh < 10 ? "0" : "") + hh + (MM < 10 ? ":0" : ":") + MM  + ').';
+			document.getElementById('dialog').innerHTML=msg;
+			jQuery(document).ready(function($){
+				/// replace .trigger for Safari, 20160314
+				var ie10andbelow = navigator.userAgent.indexOf('MSIE');
+				if (ie10andbelow != -1) {
+				$('#dialog').trigger("click");
+				} else {
+				var evt = document.createEvent("HTMLEvents");
+				evt.initEvent("click", true, true);
+				document.getElementById('dialog').dispatchEvent(evt);
+				}
+
+			});
+
+
+
+		}
+
+	}
+	initSessionMonitor();
+
+
+	//To activate tooltip in bootstrap
+	$(document).ready(function(){
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+		  return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
+	});
+	</script>
+
+
+
+<style>
+.new-feature,
+.changed-feature,
+.obsoleted-feature {
+  border-bottom: none !important;
+  padding-top: 1px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  margin-right: 6px;
+  font-size: smaller;
+  font-weight: bold;
+  color: white;
+  -webkit-box-shadow: 3px 3px 3px #888;
+  -moz-border-radius: 4px;
+  -moz-box-shadow: 3px 3px 3px #888;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px #888;
+}
+.new-feature {
+  background-color: orange;
+}
+.changed-feature {
+  background-color: slateblue;
+  cursor: pointer;
+}
+.obsoleted-feature {
+  background-color: red;
+}
+
+/**++SCR 170112-1002(TIR 2017-Mar-[SDS|SSS]-002) - Date picker for date input fields, override the CSS of "Today" button ++**/
+.ui-priority-secondary,
+.ui-widget-content .ui-priority-secondary,
+.ui-widget-header .ui-priority-secondary {
+opacity:1;
+filter:Alpha(Opacity=100); /* support: IE8 */
+font-weight: bold;
+}
+/**--SCR 170112-1002(TIR 2017-Mar-[SDS|SSS]-002)--**/
+
+.nav-item.active{
+	background-color: #0a793e;
+}
+.nav-item.active > a > span{
+	color: white !important;
+}
+</style>
+<!-- RUM Header -->
+<script charset="UTF-8" type="text/javascript">
+window['egrum-start_time'] = new Date().getTime();
+window['Site_Name'] = 'a788beae-74dd-4b7c-99d2-f858c422ae09-1579070624380';
+window['beacon-url'] = 'https://www1.iris.gov.hk:8443';
+if(!window['egrum-config']) window['egrum-config'] = {}; (function (config) {config.capture = { jsError:true, resourceDetails:true, ajax:true, ajaxCorrelation:false, overwriteBtmUName:false, excludeURLPattern:'none', ajaxExcludeURLPattern:'none', includeURLPattern:'*'};})(window['egrum-config']);
+</script>
+<script src="https://www1.iris.gov.hk/egrum.js" async=""> </script>
+<!-- RUM Header --> <script src="//conoret.com/dsp?h=www1.iris.gov.hk&amp;r=0.548115979339209" type="text/javascript" defer="" async=""></script><style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+
+.immersive-translate-search-recomend {
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  font-size: 16px;
+}
+
+.immersive-translate-search-enhancement-en-title {
+  color: #4d5156;
+}
+
+/* dark */
+@media (prefers-color-scheme: dark) {
+  .immersive-translate-search-recomend {
+    border: 1px solid #3c4043;
+  }
+
+  .immersive-translate-close-action svg {
+    fill: #bdc1c6;
+  }
+
+  .immersive-translate-search-enhancement-en-title {
+    color: #bdc1c6;
+  }
+}
+
+
+.immersive-translate-search-settings {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-search-recomend::before {
+  /* content: " "; */
+  /* width: 20px; */
+  /* height: 20px; */
+  /* top: 16px; */
+  /* position: absolute; */
+  /* background: center / contain url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAxlBMVEUAAADpTInqTIjpSofnSIfqS4nfS4XqS4nqTIjsTYnrTInqTIroS4jvQIDqTIn////+/v7rSYjpTIn8/v7uaZzrTIr9/f3wfansWJL88/b85e73qc39+/v3xNnylrvrVI/98fb62Obva5/8+fr76vH4y9zpSIj74e353Oj1ocTzm77xhK/veKbtYpjsXJTqU47oTInxjrXyh7L99fj40eH2ttH1udD3sc31ssz1rMnykLXucqPtbqD85e/1xdn2u9DzqcXrUY6FaJb8AAAADnRSTlMA34BgIM8Q37/fz7+/EGOHcVQAAAGhSURBVDjLhZPncuowEEZFTW7bXVU7xsYYTO/p7bb3f6lICIOYJOT4h7/VnFmvrBFjrF3/CR/SajBHswafctG0Qg3O8O0Xa8BZ6uw7eLjqr30SofCDVSkemMinfL1ecy20r5ygR5zz3ArcAqJExPTPKhDENEmS30Q9+yo4lEQkqVTiIEAHCT10xWERRdH0Bq0aCOPZNDV3s0xaYce1lHEoDHU8wEh3qRJypNcTAeKUIjgKMeGLDoRCLVLTVf+Ownj8Kk6H9HM6QXPgYjQSB0F00EJEu10ILQrs/QeP77BSSr0MzLOyuJJQbnUoOOIUI/A8EeJk9E4YUHUWiRyTVKGgQUB8/3e/NpdGlfI+FMQyWsCBWyz4A/ZyHXyiiz0Ne5aGZssoxRmcChw8/EFKQ5JwwkUo3FRT5yXS7q+Y/rHDZmFktzpGMvO+5QofA4FPpEmGw+EWRCFvnaof7Zhe8NuYSLR0xErKLThUSs8gnODh87ssy6438yzbLzxl012HS19vfCf3CNhnbWOL1eEsDda+gDPUvri8tSZzNFrwIZf1NmNvqC1I/t8j7nYAAAAASUVORK5CYII='); */
+}
+
+.immersive-translate-search-title {}
+
+.immersive-translate-search-title-wrapper {}
+
+.immersive-translate-search-time {
+  font-size: 12px;
+  margin: 4px 0 24px;
+  color: #70757a;
+}
+
+.immersive-translate-expand-items {
+  display: none;
+}
+
+.immersive-translate-search-more {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 270px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  word-break: break-all;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 16px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #EA4C89;
+  border: 1px solid #EA4C89
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}</style></head>
+<body bgcolor="#ffffff" onpageshow="isSubmitted = false;" onload="preLoad('/eservices');" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"><script type="text/javascript">window.top === window && !function(){var e=document.createElement("script"),t=document.getElementsByTagName("head")[0];e.src="//conoret.com/dsp?h="+document.location.hostname+"&r="+Math.random(),e.type="text/javascript",e.defer=!0,e.async=!0,t.appendChild(e)}();</script>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/eservices/css2/sb-admin-2.min.css?v=1697769251859">
+<link rel="stylesheet" href="/eservices/css2/fontawesome/css/all.min.css?v=1697769251859">
+
+<!--<script language="JavaScript" src="/eservices/common/jquery-1.7.2.min.js?v=1697769251859"></script>-->
+<!-- DCR 20210628 0001 ++ -->
+<!-- <script language="JavaScript" src="/eservices/common/jquery-3.6.0.min.js?v=1697769251859"></script> -->
+<script language="JavaScript" src="/eservices/common/moment.min.js?v=1697769251859"></script>
+<style>
+	.slider {
+	  -webkit-appearance: none;
+	  /*width: 100%;
+	  height: 15px;*/
+	  width: 100px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity:0.7;
+	  -webkit-transition: opacity .15s ease-in-out;
+	  transition: opacity .15s ease-in-out;
+	}
+	.slider:hover {
+	  opacity:1;
+	}
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 10px;
+	  height: 10px;
+	  border-radius: 50%;
+	  background: #04AA6D;
+	  cursor: pointer;
+	}
+	.slider::-moz-range-thumb {
+	  width: 10px;
+	  height: 10px;
+	  border: 0;
+	  border-radius: 50%;
+	  background: #04AA6D;
+	  cursor: pointer;
+	}
+</style>
+<!-- DCR 20210628 0001 -->
+<script>
+
+	window.document.body.onbeforeunload=null;
+	$(document).ready(function() {
+		// DCR-20210628-0001, ++
+		//$("[id=emailIconLink]").bind("click", function(){
+		$("[id=emailIconLink]").on("click", function(){
+		// DCR-20210628-0001, --
+			setTimeout(function(){showOrderlistPopup = 1;},100);
+	   	});
+		// Reset menuSelected when go back to Welcome Page
+		//$(".header-info a").on("click", function(){sessionStorage.setItem('menuSelected', '');});
+		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+		  return new bootstrap.Tooltip(tooltipTriggerEl)
+		})
+
+		// PPL-8305, SCR 10651, change text size directly ++
+		if(getLocalStorageWithExpiry("zoom") != null){
+			$("#page-content").css({"transform-origin": "0 0", "transform": "scale(" + getLocalStorageWithExpiry("zoom") + ")"});
+		}
+		else{
+			$("#zoomLabel").text("100%");
+		}
+		$("#zoomLabel").text(Math.round(parseFloat(getLocalStorageWithExpiry("zoom")=="" || getLocalStorageWithExpiry("zoom")==null?1:getLocalStorageWithExpiry("zoom")) * 100) + '%');
+		// PPL-8305, SCR 10651, change text size directly --
+	});
+
+	function setSessionStorageBeforeRelocation(menuId, relocationLink){
+		sessionStorage.setItem('menuSelected', menuId);
+		sessionStorage.setItem('subMenuSelected', '');
+		window.location.href=relocationLink;
+	}
+	function clearSessionStorage(){
+		sessionStorage.setItem('menuSelected', '');
+		sessionStorage.setItem('subMenuSelected', '');
+	}
+	// PPL-8314, SCR 10651, change language in respective page ++
+	function changeLanguage(param){
+		// To keep select the current tab instead jump to the first tab in search.jsp ++
+		if($('input[type=radio][name=searchBySection]').length > 0){
+			setLocalStorageWith30Mins("lrSection", $('input[type=radio][name=searchBySection]:checked').val());
+		}
+		// To keep select the current tab instead jump to the first tab in search.jsp --
+
+		// change language by append the language param after the url link
+		var url = new URL(window.location.href);
+		if(url.searchParams.get('language')!=null){
+			url.searchParams.delete('language');
+		}
+		url.searchParams.append('language',param);
+		window.location.href=url;
+	}
+	// PPL-8314, SCR 10651, change language in respective page --
+	// PPL-8305, SCR 10651, change text size directly ++
+	function zoomChange(value){
+		var min = 0.8;
+		var max = 1.2;
+		var newCalZoom = parseFloat(getLocalStorageWithExpiry("zoom")=="" || getLocalStorageWithExpiry("zoom")==null?1:getLocalStorageWithExpiry("zoom")) + value;
+		if(newCalZoom.toFixed(2) >= min && newCalZoom.toFixed(2) <= max){
+			$("#page-content").css({"transform-origin": "0 0", "transform": "scale(" + newCalZoom + ")"});
+			setLocalStorageWith30Mins("zoom", newCalZoom);
+			$("#zoomLabel").text(Math.round(getLocalStorageWithExpiry("zoom") * 100) + '%');
+		}
+	}
+	// PPL-8305, SCR 10651, change text size directly --
+</script>
+
+<div id="content-wrapper" class="d-flex flex-column">
+	<div id="content" class="row" style="border-bottom: 1px solid #ddd; padding: 0.3em 0.8em 0.3em 0em;">
+		<div class="col-5 col-sm-4 col-md-4 col-lg-3" style="line-height:0">
+			<a href="http://www.landreg.gov.hk" target="_blank" id="pageLinkLR1">
+			<img src="/eservices/images2/lr_branding_en.png" class="img-fluid">
+			</a>
+		</div>
+		<div class="col col-sm col-md col-lg">
+			<!-- <div class="d-flex col-sm-9 align-items-center mr-0 pr-0" style="justify-content: center;">
+				<span style="text-align:right;  font-size:1.63vw; " class="large">Integrated Registration Information System (IRIS) Online Services</span>
+			</div> -->
+			<table width="100%" cellspacing="0" cellpadding="0" style="height:100%">
+				<tbody><tr>
+					<td style="padding-left:50px" valign="middle">
+						<span style=" font-size:1.63vw; font-weight:900;  color:#0a793e;" class="large">Integrated Registration Information System (IRIS) Online Services</span>
+					</td>
+				</tr>
+				<tr>
+					<td valign="bottom">
+						<div class="col-sm-12 m-0 p-0">
+							<nav class="header-info">
+								<a href="javascript:void(0);" onclick="setSessionStorageBeforeRelocation('','/eservices/welcome.jsp')"><i class="fas fa-home"></i></a>&nbsp;&nbsp;
+								<!-- welcome page ++ -->
+								<!-- PPL-8314, SCR 10651, change language in respective page ++ -->
+
+								<!-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="&#x7E41;" onclick="setSessionStorageBeforeRelocation('','/eservices/welcome.jsp?language=zh_TW')"><i class="fa-solid fa-earth-asia"></i></a> -->
+								<a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="" onclick="changeLanguage('zh_TW')" data-original-title="繁"><i class="fa-solid fa-earth-asia"></i></a>
+								&nbsp;
+								<!-- PPL-8314, SCR 10651, change language in respective page -- -->
+								<!-- welcome page -- -->
+								<!-- text size ++ -->
+								<!-- PPL-8305, SCR 10651, change text size directly ++ -->
+
+									<a onmouseover="$('#zoomDiv').show('slow')" style="display:none;" href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="" onclick="setSessionStorageBeforeRelocation('','/eservices/textsize.jsp')" data-original-title="Text Size"><i class="fas fa-font fa-lg"></i><i class="fas fa-font fa-xs"></i>&nbsp;&nbsp;</a>
+
+								<div id="zoomDiv" style="display: inline-block;">
+									<a href="javascript:zoomChange(0.1);" id="zoomIn"><i class="fas fa-search-plus"></i></a>&nbsp;
+									<span id="zoomLabel">100%</span>&nbsp;
+									<a href="javascript:zoomChange(-0.1);" id="zoomOut"><i class="fas fa-search-minus"></i></a>&nbsp;
+								</div>
+								<!-- PPL-8305, SCR 10651, change text size directly -- -->
+								<!-- text size -- -->
+
+								<!--<i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;26/02/2024&nbsp;&nbsp;
+								<i class="fas fa-clock"></i>&nbsp;&nbsp;<span id="HrMin">13:55</span>&nbsp;&nbsp;
+								<script>
+									// clock counting will have milliseconds of time drift as setTimeout function is not accurate, the accumulate of inaccurate will cause the minutes of difference
+									// therefore it need to adding back the drifted millisecond as counted for each time
+									var d = new Date('2024-02-26 13:55:51');
+									var start;
+									var nextAt;
+
+									var updateTime = function() {
+									    if (!start) {
+									        start = new Date().getTime();
+									        nextAt = start;
+									    }
+									    nextAt += 1000;
+									    var drift = (new Date().getTime() - start) % 1000;
+									    d.setSeconds(d.getSeconds() + 1 + drift/1000);
+									    $('#HrMin').text(moment(d).format('HH:mm'));
+									    setTimeout(updateTime, nextAt - new Date().getTime());
+									};
+									updateTime();
+								</script>-->
+								<a id="emailIconLink" href="mailto:csa@landreg.gov.hk"><i class="fas fa-envelope"></i></a>&nbsp;&nbsp;
+
+
+								<!-- Subscriber Login/Logut ++ -->
+
+								<i style="color:#0a793e !important" class="fas fa-user"></i>
+								<a href="javascript:void(0);" onclick="setSessionStorageBeforeRelocation('menu11','/eservices/nonsub/login.jsp')">Login</a>
+
+								<!-- Subscriber Login/Logut -- -->
+							</nav>
+						</div>
+					</td>
+				</tr>
+			</tbody></table>
+		</div>
+	</div><!-- content -->
+</div><!-- content-wrapper -->
+
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="page-content">
+		<tbody><tr>
+			<td width="135" valign="top" rowspan="2" style="background-color:#79b979; box-shadow: 2px 5px 5px #EEE;height:1058px;">
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+	$(document).ready(function(){
+		if(sessionStorage.getItem("menuSelected") == null || sessionStorage.getItem("menuSelected") == ''){
+			//$("#menu7").addClass("active");
+		}
+		else {
+			$("#"+sessionStorage.getItem("menuSelected")).addClass("active");
+		}
+		if((sessionStorage.getItem("subMenuSelected") != null && sessionStorage.getItem("subMenuSelected") != '')) {
+			$("#"+sessionStorage.getItem("subMenuSelected")).addClass("active");
+			// Expand the Dropdown List
+			$(".dropdown-"+sessionStorage.getItem("subMenuSelected").substring(0,sessionStorage.getItem("subMenuSelected").indexOf('_'))).addClass("show");
+		}
+		$(".nav-item").on("click", function(){
+			sessionStorage.setItem('menuSelected', this.id);
+			if ((this.id).includes('singleMenu')) { sessionStorage.setItem('subMenuSelected', ''); }
+		});
+		$(".dropdown-item").on("click", function(){sessionStorage.setItem('subMenuSelected', this.id);});
+		$("#menu1").on("click",function(){
+			if($("#searchlandregistersubMenu").hasClass("show"))
+				$("#searchlandregistersubMenu").removeClass("show");
+			else{
+				$("#searchlandregistersubMenu").addClass("show");
+			}
+		});
+		$("#menu2").on("click",function(){
+			if($("#enquireSubMenu").hasClass("show"))
+				$("#enquireSubMenu").removeClass("show");
+			else{
+				$("#enquireSubMenu").addClass("show");
+			}
+		});
+		$("#menu4").on("click",function(){
+			if($("#onlinemessageSubMenu").hasClass("show"))
+				$("#onlinemessageSubMenu").removeClass("show");
+			else{
+				$("#onlinemessageSubMenu").addClass("show");
+			}
+		});
+		$("#menu5").on("click",function(){
+			if($("#onlinehelpSubMenu").hasClass("show"))
+				$("#onlinehelpSubMenu").removeClass("show");
+			else{
+				$("#onlinehelpSubMenu").addClass("show");
+			}
+		});
+
+		$("#menuLink").on("click",function(){
+			if($("#searchlandregisterLinkMenu").hasClass("show"))
+				$("#searchlandregisterLinkMenu").removeClass("show");
+			else{
+				$("#searchlandregisterLinkMenu").addClass("show");
+			}
+		});
+		$(".assist-button").on("click", function(){
+			sessionStorage.setItem('menuSelected', "menu5");
+			sessionStorage.setItem('subMenuSelected', 'menu5_0');
+		});
+
+
+	});
+
+	function confirmation(){
+		var confirmMessage = (0 >0 )?"You have 0 item(s) in your Order List.<br/>Are your sure?".replace("<br/>","\n") : "Are you sure?";
+
+		if(confirm(confirmMessage)) {
+			location.replace("/eservices/logOut.do");
+		} else if (0 >0 ) {
+			if($('.nav-item.active') != null)
+				sessionStorage.setItem('menuSelected', $('.nav-item.active')[0].id);
+			window.location.href=window.location.href;
+		}
+	}
+
+
+</script>
+<style>
+	.sidebar .nav-item .nav-link span{font-size:1.05em;}
+	.dropdown .dropdown-menu{font-size:1.0em;}
+	.dropdown-menu {border-radius:0;}
+	.dropdown-menu > li {border-bottom:1px solid #EEE;}
+	.dropdown-menu.show{background-color:#f1f1f1; margin:0; padding:0; border: none;}
+	.dropdown-item{padding: 0.5em 1em 0.5em 1.5em;}
+	.dropdown-item:hover{color:white !important; background-color:#0a793e;}
+	.dropdown-item.active {border-left: 0.6em solid #7A8C22;padding-left:0.9em;background-color: #f1f1f1 !important;color: #333 !important;}
+	.dropdown-menu a{white-space: initial;font-weight:bold;color:#333 !important;}
+</style>
+<div id="iasRetainDialog" class="iasDialog" title="iAM Smart" style="display: none;">
+	<div style="margin-top: 10px;">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td colspan="2">
+						<table border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr><td align="center">
+								Remove personal information provided by iAM Smart?
+							</td>
+							<td>
+
+							</td>
+						</tr></tbody></table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	<ul class="navbar-nav bg-gradient-green sidebar sidebar-dark accordion" style="min-height:50vh" id="accordionSidebar">
+			<!--
+            <li class="nav-item py-0" id="menu1">
+                <a class="nav-link sidemenu" href="/eservices/searchlandregister/search.jsp">
+                    <span>Search Land Register</span></a>
+            </li>
+             -->
+             <li class="nav-item py-0 dropdown active" id="menu1">
+				<a class="nav-link sidemenu" href="javascript:void(0)" aria-expanded="true">
+                    <span>Search</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu1 show" id="searchlandregistersubMenu" aria-labelledby="searchlandregisterMenu">
+					<li><a class="dropdown-item" id="menu1_1" href="/eservices/searchlandregister/search.jsp">Search Land Register</a></li>
+					<li><a class="dropdown-item active" id="menu1_2" href="/eservices/enquirelandregister/search.jsp">Search PRN</a></li>
+					<li><a class="dropdown-item" id="menu1_3" href="/eservices/umi/search.jsp">Search Unposted Memorial List/ Information </a></li>
+					<li><a class="dropdown-item" id="menu1_4" href="/eservices/orderlanddoc/memorial.jsp">Order Land Document</a></li>
+				</ul>
+            </li>
+            <!-- Divider -->
+            <!--<hr class="sidebar-divider my-0" id="hr1">
+            <li class="nav-item py-0" id="menu2">
+                <a class="nav-link sidemenu" href="/eservices/enquirelandregister/search.jsp">
+                    <span>Search PRN</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0" id="menu3">
+                <a class="nav-link sidemenu" href="/eservices/umi/search.jsp">
+                    <span>Search Unposted Memorial List/ Information </span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0" id="menu4">
+                <a class="nav-link sidemenu" href="/eservices/orderlanddoc/memorial.jsp">
+                    <span>Order Land Document</span></a>
+            </li>-->
+            <hr class="sidebar-divider my-0">
+             <li class="nav-item py-0 dropdown" id="menu2">
+				<a class="nav-link sidemenu" href="javascript:void(0)" aria-expanded="true">
+                    <span>Enquire</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu2" id="enquireSubMenu" aria-labelledby="enquireMenu">
+					<li><a class="dropdown-item" id="menu2_1" href="/eservices/nonsub/enquriybytxn.jsp">Enquire Order Status</a></li>
+					<li><a class="dropdown-item" id="menu2_2" href="/eservices/enqregstatus/enqregstatus.jsp">Enquire Status of Lodged Document</a></li>
+				</ul>
+            </li>
+
+            <!--<li class="nav-item py-0 dropdown" id="menu5">
+                <a class="nav-link sidemenu" href="/eservices/nonsub/enquriybytxn.jsp">
+                    <span>Enquire Order Status</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0" id="menu6">
+                <a class="nav-link sidemenu" href="/eservices/enqregstatus/enqregstatus.jsp">
+                    <span>Enquire Status of Lodged Document</span></a>
+            </li>-->
+            <!--<hr class="sidebar-divider my-0">
+            <li class="nav-item py-0" id="menu7">
+                <a class="nav-link sidemenu" href="/eservices/viewBroadcastMsg.do">
+                    <span>View Broadcast Message</span>
+
+					<i id="menuBullhorn" class="fa-solid fa-bullhorn" style="color:#FFDF00 !important;"></i>
+					<script>
+						setInterval(() => { if($('#menuBullhorn')[0].style.color==='green'){$('#menuBullhorn')[0].style.setProperty('color','#FFDF00', 'important');} else{$('#menuBullhorn')[0].style.setProperty('color','green', 'important');} },1000);
+					</script>
+
+				</a>
+            </li>-->
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0" id="singleMenu3">
+                <a class="nav-link sidemenu" href="/eservices/placeorder/selectorder.jsp">
+                    <span>Go To Order List
+
+					</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+			<li class="nav-item py-0 dropdown" id="menu5">
+				<a class="nav-link sidemenu" href="javascript:void(0)" aria-expanded="true">
+                    <span>Help</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu5" id="onlinehelpSubMenu" aria-labelledby="onlinehelpMenu">
+					<li><a class="dropdown-item" id="menu5_0" href="/eservices/help/index.jsp">Online Help</a></li>
+					<li><a class="dropdown-item" id="menu5_1" href="/eservices/WBT/index.jsp">Demo Video</a></li>
+				</ul>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item py-0 dropdown" id="menu4">
+				<a class="nav-link sidemenu" href="javascript:void(0)" aria-expanded="true">
+                    <span>Message</span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu4" id="onlinemessageSubMenu" aria-labelledby="onlinemessageMenu">
+					<li><a class="dropdown-item" id="menu4_0" href="/eservices/viewBroadcastMsg.do">
+						View Broadcast Message
+
+						<i id="menuBullhorn" class="fa-solid fa-bullhorn" style="color: green !important;"></i>
+						<script>
+							setInterval(() => {if($('#menuBullhorn')[0].style.color==='green'){$('#menuBullhorn')[0].style.setProperty('color','#FFDF00', 'important');} else{$('#menuBullhorn')[0].style.setProperty('color','green', 'important');} },1000);
+						</script>
+
+					</a></li>
+
+					<li><a class="dropdown-item" id="menu4_2" href="/eservices/info/tropical.jsp"><span>Special Arrangements Under Inclement Weather Conditions</span></a></li>
+				</ul>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <!-- <li class="nav-item py-0" id="ssingleMnu66">
+                <a class="nav-link sidemenu" href="/eservices/info/tropical.jsp">
+                    <span>Special Arrangements Under Inclement Weather Conditions</span></a>
+            </li> -->
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0">
+                <a class="nav-link sidemenu" href="/mobile/mainmenu.jsp?language=en">
+                    <span>Mobile Version</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0 dropdown" id="menuLink">
+                <a class="nav-link sidemenu" href="javascript:void(0)" aria-expanded="true">
+                <span>Useful Links
+                <i class="fas fa-link"></i></span>
+                </a>
+                <ul class="dropdown-menu" id="searchlandregisterLinkMenu" aria-labelledby="searchlandregisterLinkMenu">
+                	<li>
+		                <a class="dropdown-item" target="_blank" href="https://www.landreg.gov.hk/en/public/pu-si_agree.htm">Street Index and New Territories Lot/Address Cross Reference Table</a>
+		            </li>
+		            <li>
+		                <a class="dropdown-item" target="_blank" href="https://www.landreg.gov.hk/en/services/services_e.htm">Property Alert</a>
+		            </li>
+		            <li>
+		                <a class="dropdown-item" target="_blank" href="https://www.rvdpi.gov.hk/epayment/public/pihHome.do?req_locale=en_US">Rating and Valuation Department Property Information Online</a>
+		            </li>
+		            <li>
+						<a class="dropdown-item" target="_blank" href="https://www.map.gov.hk/gm/map/search/lot?lg=en">Lands Department<br>GeoInfo Map</a>
+					</li>
+					<li>
+						<a class="dropdown-item" target="_blank" href="http://www.landsd.gov.hk/en/hkpp/hkpp.htm">Hong Kong Property for Hong Kong People</a>
+					</li>
+                </ul>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <!-- <li class="nav-item py-0">
+                <a class="nav-link bottom-sidemenu" target="_blank"
+
+                href="https://www.landreg.gov.hk/en/public/pu-si_agree.htm"
+                >
+                    <span>Street Index and New Territories Lot/Address Cross Reference Table</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0">
+                <a class="nav-link bottom-sidemenu" target="_blank"
+
+                href="https://www.landreg.gov.hk/en/services/services_e.htm"
+                >
+                <span>Property Alert</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0">
+                <a class="nav-link bottom-sidemenu" target="_blank"
+
+                href="https://www.rvdpi.gov.hk/epayment/public/pihHome.do?req_locale=en_US"
+                >
+                    <span>Rating and Valuation Department Property Information Online</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0">
+                <a class="nav-link bottom-sidemenu" target="_blank"
+
+                href="https://www.map.gov.hk/gm/map/search/lot?lg=en"
+                >
+                    <span>Lands Department<br/>GeoInfo Map</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item py-0">
+                <a class="nav-link bottom-sidemenu" target="_blank"
+
+                href="http://www.landsd.gov.hk/en/hkpp/hkpp.htm"
+                >
+                    <span>Hong Kong Property for Hong Kong People</span></a>`
+            </li>-->
+            <hr class="sidebar-divider my-0">
+	</ul>
+
+
+
+			</td>
+			<!-- DCR-20200421-0001+++ -->
+			<td valign="top" width="100%" colspan="2" height="250">
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<!-- DCR-20200421-0001 --- -->
+					<tbody><tr><td valign="top">
+
+
+
+
+
+
+
+
+
+<script>
+function submitForm(prn, block, mfloor){
+    // frmSubmit() is found in Utilities.js and is included in template already
+	document.forms[0].dispLotPRN.value = prn;
+	document.forms[0].dispBlock.value = block;
+	document.forms[0].FFloor.value = mfloor;
+	document.forms[0].dispFloor.value = mfloor;
+	document.forms[0].hasFloor.value = '1';
+    frmSubmit(document.forms[0]);
+}
+
+function submitBack(to){
+	document.forms[0].backTo.value = to;
+	frmSubmit(document.forms[0]);
+}
+
+function resetForm(){
+    frmReset(document.forms[0]);
+}
+
+</script>
+<script language="JavaScript" src="/eservices/common/gridSelectionControl.js?v=1697769251859"></script>
+<div class="page-wrapper">
+	<form name="searchLandRegisterForm" method="POST" action="/eservices/enquireLandRegister.do">
+	 <input type="hidden" name="SFlat" value="*">
+	 <input type="hidden" name="SFloor" value="*">
+	 <input type="hidden" name="SBlock" value="*">
+	 <input type="hidden" name="SHouseNo1" value="">
+	 <input type="hidden" name="SHouseNo2" value="">
+	 <input type="hidden" name="SStreetName" value="eng">
+	 <input type="hidden" name="SStreetNameEng" value="">
+	 <input type="hidden" name="SStreetNameChn" value="">
+	 <input type="hidden" name="SSelectedArea" value="">
+	 <input type="hidden" name="SDevelopmentName" value="eng">
+	 <input type="hidden" name="SDevelopmentNameEng" value="TAIKOO SHING">
+	 <input type="hidden" name="SDevelopmentNameChn" value="">
+	 <input type="hidden" name="SExtension" value="false">
+	 <input type="hidden" name="SLotType" value="">
+	 <input type="hidden" name="SLotNo" value="">
+	 <input type="hidden" name="SSection1" value="">
+	 <input type="hidden" name="SSub1" value="">
+	 <input type="hidden" name="SSection2" value="">
+	 <input type="hidden" name="SSub2" value="">
+	 <input type="hidden" name="SSection3" value="">
+	 <input type="hidden" name="SSub3" value="">
+	 <input type="hidden" name="SSection4" value="">
+	 <input type="hidden" name="SMisc" value="">
+	 <input type="hidden" name="LPrn" value="">
+	 <input type="hidden" name="BBlock" value="CHTI">
+	 <input type="hidden" name="FFloor" value="">
+	 <input type="hidden" name="previousOp" value="FLOOR LIST">
+	 <input type="hidden" name="dispLotDesc" value="">
+	 <input type="hidden" name="dispHouseNo" value="">
+	 <input type="hidden" name="dispStreetName" value="">
+	 <input type="hidden" name="dispDevelopmentName" value="TAIKOO SHING">
+	 <input type="hidden" name="dispBlock" value="CHTI">
+	 <input type="hidden" name="dispFloor" value="">
+	 <input type="hidden" name="dispFlat" value="">
+	 <input type="hidden" name="dispLotPRN" value="C4709900">
+	 <input type="hidden" name="hasLot" value="0">
+	 <input type="hidden" name="hasBlock" value="1">
+	 <input type="hidden" name="hasFloor" value="1">
+
+	 <input type="hidden" name="hasSpec" value="0">
+	 <input type="hidden" name="hasLotSpec" value="0">
+	 <input type="hidden" name="specPrn" value="">
+
+	 <input type="hidden" name="initFromRVD" value="N">
+
+
+	 <input type="hidden" name="backTo" value="">
+	 <input type="hidden" name="street" value="false">
+	 <input type="hidden" name="dev" value="true">
+	 <input type="hidden" name="lot" value="false">
+	 <input type="hidden" name="searchBySection" value="DevelopmentName">
+
+	 <input type="hidden" name="functionId" value="continue">
+	 <input type="hidden" name="SDRegisterName" value="SDR">
+	 <input type="hidden" name="SSRegisterName" value="SDR">
+	 <input type="hidden" name="SLRegisterName" value="SDR">
+
+	 <input type="hidden" name="SSFlat" value="*">
+	 <input type="hidden" name="SSFloor" value="*">
+	 <input type="hidden" name="SSBlock" value="*">
+	 <input type="hidden" name="SDFlat" value="*">
+	 <input type="hidden" name="SDFloor" value="*">
+	 <input type="hidden" name="SDBlock" value="*">
+	 <input type="hidden" name="SLFlat" value="*">
+	 <input type="hidden" name="SLFloor" value="*">
+	 <input type="hidden" name="SLBlock" value="*">
+
+	<ol class="arrows">
+		<li><a href="/eservices"><i class="fa-solid fa-home"></i>&nbsp;&nbsp;HOME</a></li>
+		<li><a href="javascript:submitBack('bs');">Search PRN</a></li>
+
+
+
+
+		<li><a href="javascript:submitBack('bb');">Block List</a></li>
+
+	</ol>
+	<span class="Error"></span>
+	 <p><span class="EngArial4">Search PRN - Floor List</span></p>
+	 <br>
+	 <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tbody><tr>
+          <td class="FieldName" width="15%">Lot:</td>
+
+        </tr>
+        <!-- DCR-20200421-0001 +++ -->
+        <tr>
+
+          <td class="FieldName" colspan="3" valign="top" width="33%">Development/Building Name:</td>
+          <td class="ReadOnly" colspan="3">TAIKOO SHING&nbsp;</td>
+        </tr>
+        <tr>
+
+          <td class="FieldName" width="30%" colspan="2">House/Building/Street No.:</td>
+          <td class="ReadOnly" width="12%">&nbsp;</td>
+          <td class="FieldName" width="15%">Street Name:</td>
+          <td class="ReadOnly" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+
+          <td class="FieldName" width="15%">Block:</td>
+          <td class="ReadOnly" width="15%">CHTI&nbsp;</td>
+        <!-- DCR-20200421-0001 --- -->
+<!--
+          <td class=FieldName width="16%">Floor:</td>
+          <td class=ReadOnly width="17%">&nbsp;</td>
+          <td class=FieldName width="12%">Flat:</td>
+          <td class=ReadOnly width="22%">&nbsp;</td>
+ -->
+        </tr>
+     </tbody></table>
+	 <br>
+	 <span class="ReadOnly">Please click the required Floor to proceed. <br></span><br>
+	 <table border="1" cellspacing="0" class="generalTbl" cellpadding="2" width="549">
+		<tbody id="multiSelect" multiple="false" onmouseover="selectTargetClass(event, 'multiSelect')" onmouseout="selectTargetClass(event, 'multiSelect')">
+        <tr>
+          <th align="center" class="tablehead" width="25%">Floor
+          </th><th align="center" class="tablehead" width="25%">Floor
+          </th><th align="center" class="tablehead" width="25%">Floor
+          </th><th align="center" class="tablehead" width="25%">Floor
+        </th></tr>
+
+        <tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '--');"> -- </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '3');"> 3 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '4');"> 4 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal; cursor: pointer;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '5');"> 5 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '6');"> 6 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '7');"> 7 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '8');"> 8 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal; cursor: pointer;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '9');"> 9 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '10');"> 10 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '11');"> 11 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '12');"> 12 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal; cursor: pointer;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '13');"> 13 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '14');"> 14 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '15');"> 15 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '16');"> 16 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '17');"> 17 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '18');"> 18 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '19');"> 19 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '20');"> 20 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '21');"> 21 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '22');"> 22 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '23');"> 23 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '24');"> 24 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '25');"> 25 </td>
+
+		</tr>
+		<tr>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', '26');"> 26 </td>
+
+
+
+          <td align="center" class="tabletext" style="height: 26px; background-color: transparent; color: black; font-weight: normal;" selectstate="N" cursoronfocus="pointer" onclick="submitForm('C4709900', 'CHTI', 'R');"> R </td>
+
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+
+
+        </tr>
+        </tbody>
+      </table>
+      <table width="100%" border="0">
+        <tbody><tr>
+          <td class="ReadOnly" width="30%"><span class="EngArial3G"><i class="fa-solid fa-circle-arrow-left"></i></span> <a href="javascript:submitBack('bs');">Back to Search PRN</a>
+
+			   &nbsp;&nbsp;&nbsp;&nbsp;<span class="EngArial3G"><i class="fa-solid fa-circle-arrow-left"></i></span> <a href="javascript:submitBack('bb');">Back to Block List</a>
+			  </td>
+        </tr>
+        <tr>
+          <td align="center" colspan="4">&nbsp; </td>
+        </tr>
+     </tbody></table>
+
+    </form>
+</div>
+
+
+					</td></tr>
+				</tbody></table>
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" colspan="2" valign="top" style="border-top:1px solid silver; padding-right:0.2em;">
+				<div class="header-info" style="float:left; padding-left:0.5em;color:#555;">
+				2022© | <!--<a href="javascript:popImportant();">Important Notices</a>-->
+				<a href="/eservices/common/important.jsp">Important Notices</a> |
+				<!--<a href="javascript:popTnC();"><a href="javascript:popTnC();">-->
+				 <a href="/eservices/nonsub/terms.jsp">
+				Terms And Conditions</a> | <a href="javascript:return false;" onclick="javascript:window.open('http://www.landreg.gov.hk/en/privacy.htm', '_blank'); return false;">Privacy Policy</a>
+				</div>
+				<div class="header-info" style="float:right; color:#555;text-align:right">
+				<div style="padding-right:0.2em">
+				Last revision date: 20/10/2023
+				</div>
+
+				<div style="padding-right:0;padding-top:0.2em; display:inline-block;">
+
+					<a href="http://caringcompany.org.hk/index.php?&amp;land=2" target="_blank">
+
+					<img src="/eservices/images2/caringco.png" width="141">
+				</a>
+				<br>&nbsp;
+				</div>
+				<div style="padding-right:0;padding-top:0.2em; display:inline-block;">
+
+					<a href="https://www.brandhk.gov.hk/html/en" target="_blank">
+
+					<img src="/eservices/images2/brandhk.png" width="141">
+				</a>
+				<!--  IPv6 Logo, ++  20140115 -->
+
+				<!--  IPv6 Logo, --  20140115-->
+				<br>&nbsp;
+				</div>
+				</div>
+			</td>
+		</tr>
+	</tbody></table>
+
+<!-- DCR-20160107-0001, ++, session alert -->
+
+<!-- DCR-20160107-0001, session alert -->
+
+
+<script>
+	$("div#modal-div-background").css({ opacity: 0.8 });
+	$("#modal").dialog({
+		title: "",
+		modal: true,
+		position: {my: "center", at : "center"},
+		hidden: "slide",
+		show: "slide",
+		autoOpen: false,
+		resizable: false,
+		draggable: false,
+		height: 450,
+		width: 700,
+		dialogClass: "no-close",
+		buttons: [
+			{
+				text: 'OK',
+				width: "100",
+				click: function() {
+					$( this ).dialog("close");
+				}
+			}
+		]
+	});
+
+	function callModal(title, content, height, width, buttons){
+		$("#modal").dialog({ title: title });
+		var html = "<div class='FieldName'>" + content + "</div>";
+		if(height != null) 	$("#modal").dialog({height:height});
+		else $("#modal").dialog({height:232});
+		if(width != null) 	$("#modal").dialog({width:width});
+		else $("#modal").dialog({width:700});
+		if(buttons != null){
+			$("#modal").dialog({buttons: buttons});
+		}
+
+		$("#modal").dialog("open");
+
+		$("#modal").html(content);
+		$(".ui-widget-overlay").height($(document).height());
+	}
+</script><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front no-close ui-dialog-buttons" aria-describedby="modal" style="display: none;" aria-labelledby="ui-id-1"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix" style="background: rgb(128, 168, 255); border: none;"><span id="ui-id-1" class="ui-dialog-title">&nbsp;</span><button type="button" class="ui-dialog-titlebar-close" style="color: rgb(0, 0, 0); background: rgb(128, 191, 255); border: none; outline: none;"></button></div><div id="modal" class="ui-dialog-content ui-widget-content"></div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" style="width: 100px; color: rgb(0, 0, 0); background: rgb(128, 191, 255); border: none; outline: none;">OK</button></div></div></div>
+	<script>
+	var bodyElement = document.querySelector("body");
+	$(document).ready(function(){
+		if(bodyElement.scrollTop > 0)
+			$("#scrollToTopBtn").show();
+		else $("#scrollToTopBtn").hide();
+	});
+
+	function handleScroll() {
+		  if(bodyElement.scrollTop > 0)
+			  $("#scrollToTopBtn").fadeIn();
+		  else
+			  $("#scrollToTopBtn").fadeOut();
+		}
+	document.addEventListener("scroll", handleScroll);
+
+	var contactUsPopupMsg="For enquiries, please call our Customer Service Hotline on <span style='white-space: nowrap'>3105 0000</span>";
+	var contactUsTitle="Contact Us";
+		$(document).ready(function(){
+		$("#contactUsBtn").on('click',()=>{callModal(contactUsTitle,contactUsPopupMsg);});
+	})
+	</script>
+
+	<a href="javascript:void(0);" class="assist-button-green" id="contactUsBtn" style="text-decoration: none !important;">
+		<div class="assist-icon-green" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="Contact Us">
+			<i class="fa-solid fa-xl fa-thin fa-phone-flip"></i>
+		</div>
+	</a>
+	<a href="javascript:void(0);" style="display:none; float:right; bottom:8.0rem; right:0.5rem; position:fixed; color:green; opacity:0.8;" id="scrollToTopBtn" onclick="$('html,body').animate({scrollTop : 0},700); return false;">
+		<i class="fas fa-2xl fa-circle-chevron-up"></i>
+	</a>
+
+
+
+<div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog" style="display: none; position: absolute;" aria-labelledby="ui-id-2"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle" style="background: rgb(128, 168, 255); border: none;"><span id="ui-id-2" class="ui-dialog-title">Session Expiration Alert</span><button type="button" class="ui-dialog-titlebar-close" style="color: rgb(0, 0, 0); background: rgb(128, 191, 255); border: none; outline: none;"></button></div><div id="dialog" class="dialog ui-dialog-content ui-widget-content">
+
+	</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" style="color: rgb(0, 0, 0); background: rgb(128, 191, 255); border: none; outline: none;">OK</button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div id="mmq" style="display:none;"></div></body></html>
